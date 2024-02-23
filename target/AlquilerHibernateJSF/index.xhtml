@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" />
+	<link rel="stylesheet" type="text/css"
+		href="#{request.contextPath}/resources/css/login/style.css" />
+	<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'
+		rel='stylesheet' />
+	<title>Sistema Hostal los Delfines</title>
+</h:head>
+<h:body>
+	<h:form class="login-panel">
+		<div class="card">
+			<div class="logo">
+				<p:graphicImage name="images/logo.jpg"/>
+			</div>
+			<div class="card-content ui-fluid">
+				<div class="col-12 md:col-4">
+					<div class="ui-inputgroup">
+						<div class="ui-inputgroup-addon"><i class="pi pi-user"></i></div>
+						<p:inputText placeholder="Nombre de Usuario" id="usuario" value="#{presentadorLogin.empleadoAutenticado.username}"/>
+					</div>
+				</div>
+				<div class="col-12 md:col-4">
+					<div class="ui-inputgroup">
+						<div class="ui-inputgroup-addon"><i class="pi pi-key"></i></div>
+						<p:password id="password" placeholder="Contraseña" value="#{presentadorLogin.empleadoAutenticado.password}"/>
+					</div>
+				</div>
+				<div class="card-content_button">
+					<p:commandButton value="Ingresar" class="btn"
+									 styleClass="ui-button-rounded ui-button-primary"
+									 icon="pi pi-user"
+									 action="#{presentadorLogin.login}"
+									 update="msgs"/>
+				</div>
+				<p:messages id="msgs"/>
+			</div>
+		</div>
+	</h:form>
+</h:body>
+</html>

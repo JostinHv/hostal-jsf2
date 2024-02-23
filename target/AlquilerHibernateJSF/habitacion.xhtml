@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com"/>
+    <link rel="stylesheet" type="text/css"
+          href="#{request.contextPath}/resources/css/recepcionista/style.css"/>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'
+          rel='stylesheet'/>
+    <title>Sistema Hostal los Delfines</title>
+</h:head>
+<h:body>
+    <p:tabMenu activeIndex="#{param.i}" class="header-menu">
+        <p:menuitem value="Empleados" outcome="empleado.xhtml" icon="pi pi-fw pi-home">
+            <f:param name="i" value="0"/>
+        </p:menuitem>
+        <p:menuitem value="Habitaciones" outcome="habitacion.xhtml" icon="pi pi-fw pi-calendar">
+            <f:param name="i" value="1"/>
+        </p:menuitem>
+        <p:menuitem value="Cerrar Sesión" outcome="index.xhtml" icon="pi pi-fw pi-cog">
+            <f:param name="i" value="2"/>
+        </p:menuitem>
+    </p:tabMenu>
+
+    <div class="card crud-demo">
+        <h:form id="form">
+            <p:growl id="messages" showDetail="true"/>
+            <p:toolbar>
+                <p:toolbarGroup>
+                    <p:commandButton value="Nuevo" icon="pi pi-plus"
+                                     actionListener="#{presentadorHabitacion.nuevaHabitacion}"
+                                     update=":dialogs:manage-product-content"
+                                     oncomplete="PF('manageProductDialog').show()"
+                                     styleClass="ui-button-success" style="margin-right: .5rem">
+                        <p:resetInput target=":dialogs:manage-product-content"/>
+                    </p:commandButton>
+                    <p:commandButton id="delete-products-button" value="#{presentadorHabitacion.eliminarBotonMensaje}"
+                                     icon="pi pi-trash"
+                                     actionListener="#{presentadorHabitacion.eliminarHabitacionesSeleccionadas()}"
+                                     styleClass="ui-button-danger"
+                                     disabled="#{!presentadorHabitacion.tieneHabitacionesSeleccionadas()}"
+                                     update="@this">
+                        <p:confirm header="Confirmation" message="¿Eliminar habitación seleccionada?"
+                                   icon="pi pi-exclamation-triangle"/>
+                    </p:commandButton>
+                </p:toolbarGroup>
+            </p:toolbar>
+
+            <p:dataTable id="dt-products" widgetVar="dtProducts" var="habitacion"
+                         value="#{presentadorHabitacion.listarHabitaciones()}"
+                         reflow="true" styleClass="products-table"
+                         selection="#{presentadorHabitacion.listaHabitacionesSeleccionadas}"
+                         rowKey="#{habitacion.id}" paginator="true" rows="10" rowSelectMode="add"
+                         paginatorPosition="bottom">
+                <f:facet name="header">
+                    <div class="products-table-header">
+                        <span style="font-weight: bold">Lista de Habitaciones</span>
+                        <span class="filter-container ui-input-icon-left"> <i class="pi pi-search"></i>
+                        <p:inputText id="globalFilter" onkeyup="PF('dtProducts').filter()" placeholder="Buscar"/>
+                    </span>
+                    </div>
+                </f:facet>
+
+                <p:ajax event="rowSelect" update=":form:delete-products-button"/>
+                <p:ajax event="rowUnselect" update=":form:delete-products-button"/>
+                <p:ajax event="rowSelectCheckbox" update=":form:delete-products-button"/>
+                <p:ajax event="rowUnselectCheckbox" update=":form:delete-products-button"/>
+                <p:ajax event="toggleSelect" update=":form:delete-products-button"/>
+
+                <p:column selectionMode="multiple" exportable="false"></p:column>
+
+                <p:column headerText="Id" sortBy="#{habitacion.id}" filterBy="#{habitacion.id}">
+                    <h:outputText value="#{habitacion.id}"/>
+                </p:column>
+                <p:column headerText="Número" sortBy="#{habitacion.numero}" filterBy="#{habitacion.numero}">
+                    <h:outputText value="#{habitacion.numero}"/>
+                </p:column>
+                <p:column headerText="Tipo" sortBy="#{habitacion.tipoHabitacion}"
+                          filterBy="#{habitacion.tipoHabitacion}">
+                    <h:outputText value="#{habitacion.tipoHabitacion}"/>
+                </p:column>
+                <p:column headerText="Disponible" sortBy="#{habitacion.disponible}" filterBy="#{habitacion.disponible}">
+                    <h:outputText value="#{habitacion.disponible ? 'Sí' : 'No'}"/>
+                </p:column>
+                <p:column headerText="Precio" sortBy="#{habitacion.precio}" filterBy="#{habitacion.precio}">
+                    <h:outputText value="#{habitacion.precio}"/>
+                </p:column>
+                <p:column headerText="Duración" sortBy="#{habitacion.duracionHabitacion}"
+                          filterBy="#{habitacion.duracionHabitacion}">
+                    <h:outputText value="#{habitacion.duracionHabitacion}"/>
+                </p:column>
+                <p:column exportable="false">
+                    <p:commandButton icon="pi pi-pencil" update=":dialogs:manage-product-content"
+                                     oncomplete="PF('manageProductDialog').show()"
+                                     styleClass="edit-button rounded-button ui-button-success" process="@this">
+                        <f:setPropertyActionListener value="#{habitacion}"
+                                                     target="#{presentadorHabitacion.habitacion}"/>
+                        <p:resetInput target=":dialogs:manage-product-content"/>
+                    </p:commandButton>
+                    <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash"
+                                     process="@this"
+                                     oncomplete="PF('deleteProductDialog').show()">
+                        <f:setPropertyActionListener value="#{habitacion}"
+                                                     target="#{presentadorHabitacion.habitacion}"/>
+                    </p:commandButton>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+
+        <h:form id="dialogs">
+            <p:dialog header="Habitación Detalles" showEffect="fade" modal="true" widgetVar="manageProductDialog"
+                      responsive="true">
+                <p:outputPanel id="manage-product-content" class="ui-fluid">
+                    <p:outputPanel rendered="#{not empty presentadorHabitacion.habitacion}">
+                        <div class="field">
+                            <p:outputLabel for="numero">Número</p:outputLabel>
+                            <p:inputText id="numero" value="#{presentadorHabitacion.habitacion.numero}"
+                                         required="true"/>
+                        </div>
+                        <div class="field">
+                            <p:outputLabel for="tipoHabitacion">Tipo de Habitación</p:outputLabel>
+                            <p:inputText id="tipoHabitacion" value="#{presentadorHabitacion.habitacion.tipoHabitacion}"
+                                         required="true"/>
+                        </div>
+                        <div class="field">
+                            <p:outputLabel for="disponible">Disponible</p:outputLabel>
+                            <p:selectBooleanCheckbox id="disponible"
+                                                     value="#{presentadorHabitacion.habitacion.disponible}"/>
+                        </div>
+                        <div class="field">
+                            <p:outputLabel for="precio">Precio</p:outputLabel>
+                            <p:inputText id="precio" value="#{presentadorHabitacion.habitacion.precio}"
+                                         required="true"/>
+                        </div>
+                        <div class="field">
+                            <p:outputLabel for="duracionHabitacion">Duración de Habitación</p:outputLabel>
+                            <p:selectOneMenu id="duracionHabitacion"
+                                             value="#{presentadorHabitacion.habitacion.duracionHabitacion}"
+                                             required="true">
+                                <f:selectItem itemLabel="3 horas" itemValue="3"/>
+                                <f:selectItem itemLabel="24 horas" itemValue="24"/>
+                            </p:selectOneMenu>
+                        </div>
+                    </p:outputPanel>
+                </p:outputPanel>
+
+                <f:facet name="footer">
+                    <p:commandButton value="Save" icon="pi pi-check"
+                                     actionListener="#{presentadorHabitacion.registrarHabitacion()}"
+                                     update="manage-product-content" process="manage-product-content @this"/>
+                    <p:commandButton value="Cancel" icon="pi pi-times" onclick="PF('manageProductDialog').hide()"
+                                     class="ui-button-secondary" type="button"/>
+                </f:facet>
+            </p:dialog>
+
+            <p:confirmDialog widgetVar="deleteProductDialog" showEffect="fade" width="300"
+                             message="¿Eliminar habitación?" header="Confirm" severity="warn">
+                <p:commandButton value="Yes" icon="pi pi-check"
+                                 actionListener="#{presentadorHabitacion.eliminarHabitacion()}"
+                                 process="@this" update=":form:delete-products-button"
+                                 oncomplete="PF('deleteProductDialog').hide()"/>
+                <p:commandButton value="No" type="button" styleClass="ui-button-secondary" icon="pi pi-times"
+                                 onclick="PF('deleteProductDialog').hide()"/>
+            </p:confirmDialog>
+
+            <p:confirmDialog global="true" showEffect="fade" width="300">
+                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check"/>
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-secondary"
+                                 icon="pi pi-times"/>
+            </p:confirmDialog>
+        </h:form>
+    </div>
+</h:body>
+</html>
