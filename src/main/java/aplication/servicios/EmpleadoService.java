@@ -3,12 +3,15 @@ package aplication.servicios;
 import access.impl.EmpleadoDao;
 import domain.entity.Empleado;
 
-import javax.faces.bean.ApplicationScoped;
 import java.util.List;
 
-@ApplicationScoped
+
 public class EmpleadoService {
-    private EmpleadoDao empleadoDao;
+    private final EmpleadoDao empleadoDao;
+
+    public EmpleadoService(){
+        this.empleadoDao = new EmpleadoDao();
+    }
 
     public void insertar(Empleado obj) {
         empleadoDao.insertar(obj);

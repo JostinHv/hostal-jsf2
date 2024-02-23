@@ -4,12 +4,14 @@ package aplication.servicios;
 import access.impl.HabitacionDao;
 import domain.entity.Habitacion;
 
-import javax.faces.bean.ApplicationScoped;
 import java.util.List;
 
-@ApplicationScoped
 public class HabitacionService {
-    private HabitacionDao habitacionDao;
+    private final HabitacionDao habitacionDao;
+
+    public HabitacionService(){
+        this.habitacionDao = new HabitacionDao();
+    }
 
     public void insertar(Habitacion obj) {
         habitacionDao.insertar(obj);

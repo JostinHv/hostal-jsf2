@@ -33,7 +33,7 @@ public class PresentadorCliente implements Serializable {
         cliente = new Cliente();
     }
 
-    public void listarCliemtes(){
+    public void listarClientes(){
         listaClientes = clienteService.obtenerTodos();
     }
 
