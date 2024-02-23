@@ -2,6 +2,7 @@ package presentation;
 
 import aplication.servicios.LoginService;
 import domain.entity.Empleado;
+import enums.Rol;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -28,6 +29,9 @@ public class PresentadorLogin  implements Serializable {
 	public String login() {
 		empleadoAutenticado = loginService.autenticar(empleadoAutenticado.getUsername(), empleadoAutenticado.getPassword());
 		if (empleadoAutenticado != null) {
+			if (empleadoAutenticado.getRol()== Rol.GERENTE) {
+				return "HomeGerente?faces-redirect=true";
+			}
 			return "Home?faces-redirect=true";
 		} else {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Invalid credentials"));
