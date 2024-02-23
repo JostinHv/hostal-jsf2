@@ -10,7 +10,7 @@ public class ProductoService {
 
     private final ProductoDao productoDao;
 
-    public ProductoService(){
+    public ProductoService() {
         this.productoDao = new ProductoDao();
     }
 

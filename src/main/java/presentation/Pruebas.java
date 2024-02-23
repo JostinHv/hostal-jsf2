@@ -9,6 +9,8 @@ import domain.entity.Cliente;
 import domain.entity.Habitacion;
 import domain.entity.Producto;
 import domain.entity.Reserva;
+import domain.model.InformeReservas;
+import enums.Turno;
 
 import java.util.List;
 
@@ -34,6 +36,12 @@ public class Pruebas {
         for (Cliente cliente : clientes) {
             System.out.println(cliente.toString());
         }
+        InformeReservas informeReservas = new InformeReservas(reservas);
+        List<Reserva> reservasFiltradas= informeReservas.filtrarPorTurno(Turno.MANIANA);
+        for (Reserva reserva : reservasFiltradas) {
+            System.out.println(reserva.toString());
+        }
+        System.out.println("Total:"+informeReservas.calcularTotal()+" Turno"+reservasFiltradas.getFirst().getTurno());
     }
 
 
