@@ -6,8 +6,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
 import aplication.ServicioAutenticacion;
-import domain.entity.Administrador;
-import domain.entity.Cuenta;
 import domain.entity.Usuario;
 
 @ManagedBean

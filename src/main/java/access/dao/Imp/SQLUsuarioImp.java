@@ -1,6 +1,5 @@
 package access.dao.Imp;
 
-import java.util.Iterator;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -9,7 +8,6 @@ import org.hibernate.query.Query;
 
 import access.conection.HibernateUtil;
 import access.dao.DAO;
-import domain.entity.Cuenta;
 import domain.entity.Usuario;
 
 public class SQLUsuarioImp extends DAO<Usuario> {

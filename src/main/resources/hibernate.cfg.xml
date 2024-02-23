@@ -4,19 +4,19 @@
 	<session-factory>
 		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
 		<property name="connection.url">
-			jdbc:mysql://localhost:3306/sistemas_reservas</property>
+			jdbc:mysql://localhost:3306/losdelfines</property>
 		<property name="connection.username">root</property>
-		<property name="connection.password">1234</property>
+		<property name="connection.password">0212002</property>
 		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
 		<property name="format_sql">true</property>
 		<property name="use_sql_comments">true</property>
-
-		<mapping class="domain.entity.Administrador" />
-		<mapping class="domain.entity.Usuario" />
-		<mapping class="domain.entity.Categoria" />
-		<mapping class="domain.entity.Libro" />
-		<mapping class="domain.entity.Autor" />
-		<mapping class="domain.entity.Cuenta" />
-		<mapping class="domain.entity.Reserva" />
+	<!--
+		<mapping class="com.jsf.hostaljsf.dominio.entidad.Cliente" />
+		<mapping class="com.jsf.hostaljsf.dominio.entidad.Empleado" />
+		<mapping class="com.jsf.hostaljsf.dominio.entidad.Habitacion" />
+		<mapping class="com.jsf.hostaljsf.dominio.entidad.Reserva" />
+		<mapping class="com.jsf.hostaljsf.dominio.entidad.Producto" />
+		<mapping class="com.jsf.hostaljsf.dominio.entidad.VentaProducto" />
+		<mapping class="com.jsf.hostaljsf.dominio.entidad.VentaProductoDetalle" />-->
 	</session-factory>
 </hibernate-configuration>

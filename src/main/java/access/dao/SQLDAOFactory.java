@@ -6,10 +6,6 @@ import access.dao.Imp.SQLCategoriaImp;
 import access.dao.Imp.SQLLibroImp;
 import access.dao.Imp.SQLReservaImp;
 import access.dao.Imp.SQLUsuarioImp;
-import domain.entity.Administrador;
-import domain.entity.Autor;
-import domain.entity.Categoria;
-import domain.entity.Libro;
 import domain.entity.Reserva;
 import domain.entity.Usuario;
 

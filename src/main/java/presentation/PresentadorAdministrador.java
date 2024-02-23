@@ -8,8 +8,6 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
-import domain.entity.Cuenta;
-
 @ManagedBean
 @SessionScoped
 public class PresentadorAdministrador implements Serializable {

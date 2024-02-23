@@ -1,11 +1,8 @@
 package domain.model;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
-import domain.entity.Administrador;
-import domain.entity.Cuenta;
 import domain.entity.Usuario;
 
 public class Autenticacion {

@@ -2,7 +2,6 @@ package aplication;
 
 import java.util.List;
 
-import domain.entity.Categoria;
 import domain.model.AbsCRUD;
 import domain.model.CategoriaModel;
 

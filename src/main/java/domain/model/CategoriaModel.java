@@ -5,7 +5,6 @@ import java.util.List;
 import access.dao.AbstractDAOFactory;
 import access.dao.DAO;
 import access.dao.FactoryType;
-import domain.entity.Categoria;
 
 public class CategoriaModel extends AbsCRUD<Categoria> {
 	private List<Categoria> categorias;

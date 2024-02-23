@@ -2,7 +2,6 @@ package domain.strategy;
 
 import java.util.List;
 
-import domain.entity.Libro;
 import domain.entity.Reserva;
 import domain.entity.Usuario;
 

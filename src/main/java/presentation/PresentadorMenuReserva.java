@@ -14,7 +14,6 @@ import org.primefaces.PrimeFaces;
 
 import aplication.ServicioReserva;
 import aplication.dto.ReservaDTO;
-import domain.entity.Cuenta;
 
 @ManagedBean
 @SessionScoped

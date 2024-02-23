@@ -8,7 +8,6 @@ import org.hibernate.query.Query;
 
 import access.conection.HibernateUtil;
 import access.dao.DAO;
-import domain.entity.Categoria;
 
 public class SQLCategoriaImp extends DAO<Categoria> {
 

@@ -1,7 +1,5 @@
 package aplication;
 
-import domain.entity.Administrador;
-import domain.entity.Cuenta;
 import domain.entity.Usuario;
 import domain.model.Autenticacion;
 

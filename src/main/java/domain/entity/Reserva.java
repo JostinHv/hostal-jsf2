@@ -1,97 +1,33 @@
 package domain.entity;
 
-import java.time.LocalDate;
+import enums.Estado;
+import enums.Turno;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Entity
-@Table(name = "reserva")
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
 public class Reserva {
 	@Id
-	@Column(name = "idReserva")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int ID;
-	
-	@OneToOne
-	@JoinColumn(name = "carnet", referencedColumnName = "id")
-	private Usuario Usuario;
-	
-	@OneToOne
-	@JoinColumn(name = "idLibro", referencedColumnName = "idLibro")
-	private Libro Libro;
-	
-	@Column(name = "fechaReserva")
-	private LocalDate fechaReserva;
-	
-	@Column(name = "fechaLimite")
-	private LocalDate fechaLimite;
-	
-	@Column(name = "estado")
-	private String estado;
-
-	public Reserva() {
-
-	}
-
-	public int getID() {
-		return ID;
-	}
-
-	public void setID(int iD) {
-		ID = iD;
-	}
-
-	public Usuario getUsuario() {
-		return Usuario;
-	}
-
-	public void setUsuario(Usuario usuario) {
-		Usuario = usuario;
-	}
-
-	public Libro getLibro() {
-		return Libro;
-	}
-
-	public void setLibro(Libro libro) {
-		Libro = libro;
-	}
-
-	public LocalDate getFechaReserva() {
-		return fechaReserva;
-	}
-
-	public void setFechaReserva(LocalDate fechaReserva) {
-		this.fechaReserva = fechaReserva;
-	}
-
-	public LocalDate getFechaLimite() {
-		return fechaLimite;
-	}
-
-	public void setFechaLimite(LocalDate fechaLimite) {
-		this.fechaLimite = fechaLimite;
-	}
-
-	public String getEstado() {
-		return estado;
-	}
-
-	public void setEstado(String estado) {
-		this.estado = estado;
-	}
-
-	@Override
-	public String toString() {
-		return "Reserva [ID=" + ID + ", Usuario=" + Usuario + ", Libro=" + Libro + ", fechaReserva=" + fechaReserva
-				+ ", fechaLimite=" + fechaLimite + ", estado=" + estado + "]";
-	}
-
+	private int id;
+	private LocalTime horaIngreso;
+	private LocalTime horaSalida;
+	private int nroPersonas;
+	@Enumerated(EnumType.STRING)
+	private Estado estado;
+	@Enumerated(EnumType.STRING)
+	private Turno turno;
+	private LocalDate fechaIngreso;
+	private LocalDate fechaSalida;
+	private Double costoYape;
+	private Double costoEfectivo;
+	@ManyToOne
+	private Habitacion habitacion;
+	@ManyToOne
+	private Cliente cliente;
 }

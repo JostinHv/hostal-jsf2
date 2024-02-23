@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import domain.entity.Libro;
 import domain.entity.Reserva;
 import domain.entity.Usuario;
 

@@ -5,7 +5,6 @@ import java.util.List;
 import access.dao.AbstractDAOFactory;
 import access.dao.DAO;
 import access.dao.FactoryType;
-import domain.entity.Autor;
 
 public class AutorModel extends AbsCRUD<Autor> {
 	private List<Autor> autores;

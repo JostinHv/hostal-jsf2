@@ -7,7 +7,6 @@ import org.hibernate.query.Query;
 
 import access.conection.HibernateUtil;
 import access.dao.DAO;
-import domain.entity.Administrador;
 
 public class SQLAdministradorImp extends DAO<Administrador> {
 

@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import aplication.dto.LibroDTO;
-import domain.entity.Autor;
-import domain.entity.Categoria;
-import domain.entity.Libro;
 import domain.model.AbsCRUD;
 import domain.model.LibroModel;
 

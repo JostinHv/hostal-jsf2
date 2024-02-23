@@ -5,7 +5,6 @@ import java.util.List;
 
 import aplication.dto.LibroDTO;
 import aplication.dto.ReservaDTO;
-import domain.entity.Libro;
 import domain.entity.Reserva;
 import domain.entity.Usuario;
 import domain.model.ReservaModel;

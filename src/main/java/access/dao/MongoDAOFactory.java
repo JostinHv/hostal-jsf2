@@ -1,9 +1,5 @@
 package access.dao;
 
-import domain.entity.Administrador;
-import domain.entity.Autor;
-import domain.entity.Categoria;
-import domain.entity.Libro;
 import domain.entity.Reserva;
 import domain.entity.Usuario;
 

@@ -12,7 +12,6 @@ import org.primefaces.PrimeFaces;
 
 import aplication.ServicioAutor;
 import aplication.ServicioCRUD;
-import domain.entity.Autor;
 
 @ManagedBean
 @ViewScoped
