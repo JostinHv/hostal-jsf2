@@ -5,7 +5,6 @@ import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
-import aplication.ServicioAutenticacion;
 import domain.entity.Usuario;
 
 @ManagedBean
@@ -13,32 +12,23 @@ import domain.entity.Usuario;
 public class PresentadorLogin implements Serializable {
 
 	private static final long serialVersionUID = -7590257808781595903L;
-	private ServicioAutenticacion sAutenticacion;
-	private Cuenta cuenta;
+
+	private String cuenta;
 
 	public PresentadorLogin() {
-		this.sAutenticacion = new ServicioAutenticacion();
-		this.cuenta = new Usuario();
+
 	}
 
-	public Cuenta getCuenta() {
-		return cuenta;
+	public String getCuenta() {
+		return "hola";
 	}
 
-	public void setCuenta(Cuenta cuenta) {
+	public void setCuenta(String cuenta) {
 		this.cuenta = cuenta;
 	}
 
 	public String autenticarse() {
-		Cuenta tipoCuenta = sAutenticacion.autenticarse(cuenta);
-		setCuenta(tipoCuenta);
-		if (tipoCuenta instanceof Administrador) {
-			return "MenuAdministrador?faces-redirect=true";
-		}
-		if (tipoCuenta instanceof Usuario) {
-			return "MenuUsuario?faces-redirect=true";
 
-		}
 		return null;
 	}
 
