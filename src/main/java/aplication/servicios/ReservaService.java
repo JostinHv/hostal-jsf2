@@ -3,12 +3,14 @@ package aplication.servicios;
 import access.impl.ReservaDao;
 import domain.entity.Reserva;
 
-import javax.faces.bean.ApplicationScoped;
 import java.util.List;
 
-@ApplicationScoped
 public class ReservaService {
-    private ReservaDao reservaDao;
+    private final ReservaDao reservaDao;
+
+    public ReservaService(){
+        this.reservaDao = new ReservaDao();
+    }
 
     public void insertar(Reserva obj) {
         reservaDao.insertar(obj);

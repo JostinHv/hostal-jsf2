@@ -3,12 +3,14 @@ package aplication.servicios;
 import access.impl.ClienteDao;
 import domain.entity.Cliente;
 
-import javax.faces.bean.ApplicationScoped;
 import java.util.List;
 
-@ApplicationScoped
 public class ClienteService {
-    private ClienteDao clienteDao;
+    private final ClienteDao clienteDao;
+
+    public ClienteService(){
+        this.clienteDao = new ClienteDao();
+    }
 
     public void insertar(Cliente obj) {
         clienteDao.insertar(obj);
