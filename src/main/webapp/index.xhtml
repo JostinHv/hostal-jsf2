@@ -25,20 +25,20 @@
 				<div class="col-12 md:col-4">
 					<div class="ui-inputgroup">
 						<div class="ui-inputgroup-addon"><i class="pi pi-user"></i></div>
-						<p:inputText placeholder="Nombre de Usuario" id="usuario" value="#{presentadorLogin.usuario}"/>
+						<p:inputText placeholder="Nombre de Usuario" id="usuario" value="#{presentadorLogin.empleadoAutenticado.username}"/>
 					</div>
 				</div>
 				<div class="col-12 md:col-4">
 					<div class="ui-inputgroup">
 						<div class="ui-inputgroup-addon"><i class="pi pi-key"></i></div>
-						<p:password id="password" placeholder="Contraseña" value="#{presentadorLogin.contrasena}"/>
+						<p:password id="password" placeholder="Contraseña" value="#{presentadorLogin.empleadoAutenticado.password}"/>
 					</div>
 				</div>
 				<div class="card-content_button">
 					<p:commandButton value="Ingresar"
 									 styleClass="ui-button-rounded ui-button-primary"
 									 icon="pi pi-user"
-									 actionListener="#{presentadorLogin.iniciarSesion()}"
+									 actionListener="#{presentadorLogin.login()}"
 									 update="msgs"/>
 				</div>
 				<p:messages id="msgs"/>
