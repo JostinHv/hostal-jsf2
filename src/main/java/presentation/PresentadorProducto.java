@@ -2,12 +2,17 @@ package presentation;
 
 import aplication.servicios.ProductoService;
 import domain.entity.Producto;
+import enums.Categoria;
 import lombok.Getter;
 import lombok.Setter;
+import org.primefaces.PrimeFaces;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +27,10 @@ public class PresentadorProducto implements Serializable {
     @Getter
     @Setter
     private List<Producto> listaProductos;
+    @Getter
+    @Setter
+    private List<Producto> listaProductosSelecionados;
+
 
     public PresentadorProducto(){
         this.productoService = new ProductoService();
@@ -33,8 +42,8 @@ public class PresentadorProducto implements Serializable {
         producto = new Producto();
     }
 
-    public void listarProductos(){
-        listaProductos = productoService.obtenerTodos();
+    public List<Producto> listarProductos() {
+        return productoService.obtenerTodos();
     }
 
     public void buscarProducto(){
@@ -42,16 +51,54 @@ public class PresentadorProducto implements Serializable {
     }
 
     public void registrarProducto(){
-        productoService.insertar(producto);
+        if (this.producto.getId() == 0) {
+            productoService.insertar(producto);
+            this.producto = null;
+            this.listaProductos = productoService.obtenerTodos();
+        } else {
+            this.editarProducto();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Producto actualizado"));
+        }
+        PrimeFaces.current().executeScript("PF('manageProductDialog').hide()");
+        PrimeFaces.current().ajax().update("form:messages", "form:dt-products");
     }
 
     public void eliminarProducto(){
         producto = productoService.obtener(producto.getId());
         productoService.eliminar(producto);
+        this.producto = null;
+        this.listaProductos = productoService.obtenerTodos();
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Producto Eliminado"));
+        PrimeFaces.current().ajax().update("form:messages", "form:dt-products");
     }
 
     public void editarProducto(){
         productoService.modificar(producto);
+        this.producto = null;
+        this.listaProductos = productoService.obtenerTodos();
     }
 
+    public String getEliminarBotonMensaje() {
+        if (tieneProductosSeleccionados()) {
+            int size = this.listaProductosSelecionados.size();
+            return size > 1 ? size + " productos seleccionados" : "1 producto seleccionado";
+        }
+        return "Eliminar";
+    }
+
+    public boolean tieneProductosSeleccionados() {
+        return this.listaProductosSelecionados != null && !this.listaProductosSelecionados.isEmpty();
+    }
+
+    public void eliminarProductosSeleccionados() {
+        this.listaProductos.removeAll(this.listaProductosSelecionados);
+        this.listaProductosSelecionados = null;
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Producto Eliminados"));
+        PrimeFaces.current().ajax().update("form:messages", "form:dt-products");
+        PrimeFaces.current().executeScript("PF('dtProducts').clearFilters()");
+    }
+
+    public Categoria[] getValoreCategoria() {
+        return Categoria.values();
+    }
 }
