@@ -196,7 +196,7 @@
                             <p:outputLabel for="habitacion">Habitación</p:outputLabel>
                             <div class="field">
                                 <p:outputLabel for="habitacion">ID Habitación</p:outputLabel>
-                                <p:inputText id="habitacion" value="#{presentadorReserva.idHabitacionSeleccionada}"
+                                <p:inputText id="habitacion" value="#{presentadorReserva.reserva.habitacion.id}"
                                              required="true" converter="javax.faces.Integer"/>
                             </div>
                         </div>
@@ -204,7 +204,7 @@
                             <p:outputLabel for="cliente">Cliente</p:outputLabel>
                             <div class="field">
                                 <p:outputLabel for="cliente">ID Cliente</p:outputLabel>
-                                <p:inputText id="cliente" value="#{presentadorReserva.idClienteSeleccionado}"
+                                <p:inputText id="cliente" value="#{presentadorReserva.reserva.cliente.id}"
                                              required="true" converter="javax.faces.Integer"/>
                             </div>
                         </div>

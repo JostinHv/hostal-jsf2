@@ -57,13 +57,6 @@ public class PresentadorReserva implements Serializable {
     @Setter
     private List<Turno> turnos;
 
-    @Getter
-    @Setter
-    private int idHabitacionSeleccionada;
-
-    @Getter
-    @Setter
-    private int idClienteSeleccionado;
 
     public PresentadorReserva() {
         this.reservaService = new ReservaService();
@@ -96,8 +89,8 @@ public class PresentadorReserva implements Serializable {
 
     public void registrarReserva() {
         if (this.reserva.getId() == 0) {
-            Habitacion habitacion = habitacionService.obtener(idHabitacionSeleccionada);
-            Cliente cliente = clienteService.obtener(idClienteSeleccionado);
+            Habitacion habitacion = habitacionService.obtener(reserva.getHabitacion().getId());
+            Cliente cliente = clienteService.obtener(reserva.getCliente().getId());
             this.reserva.setHabitacion(habitacion);
             this.reserva.setCliente(cliente);
             reservaService.insertar(reserva);
