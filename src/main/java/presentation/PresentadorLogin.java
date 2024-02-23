@@ -13,23 +13,28 @@ public class PresentadorLogin implements Serializable {
 
 	private static final long serialVersionUID = -7590257808781595903L;
 
-	private String cuenta;
+	private String usuario;
+	private String contrasena;
 
-	public PresentadorLogin() {
-
+	public String iniciarSesion(){
+		//aquí va validación de usuario
+		return "inicio";
 	}
 
-	public String getCuenta() {
-		return "hola";
+	public String getUsuario() {
+		return usuario;
 	}
 
-	public void setCuenta(String cuenta) {
-		this.cuenta = cuenta;
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
 	}
 
-	public String autenticarse() {
+	public String getContrasena() {
+		return contrasena;
+	}
 
-		return null;
+	public void setContrasena(String contrasena) {
+		this.contrasena = contrasena;
 	}
 
 }
