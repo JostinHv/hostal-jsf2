@@ -17,20 +17,19 @@
 </h:head>
 <h:body>
     <p:tabMenu activeIndex="#{param.i}" class="header-menu">
-        <p:menuitem value="Clientes" outcome="cliente.xhtml" icon="pi pi-fw pi-home">
+        <p:menuitem value="Clientes" outcome="cliente.xhtml" icon="pi pi-fw pi-user">
             <f:param name="i" value="0"/>
         </p:menuitem>
-        <p:menuitem value="Productos" outcome="producto.xhtml" icon="pi pi-fw pi-pencil">
+        <p:menuitem value="Productos" outcome="producto.xhtml" icon="pi pi-fw pi-shopping-cart">
             <f:param name="i" value="1"/>
         </p:menuitem>
-        <p:menuitem value="Reservas" outcome="reserva.xhtml" icon="pi pi-fw pi-file">
+        <p:menuitem value="Reservas" outcome="reserva.xhtml" icon="pi pi-fw pi-calendar">
             <f:param name="i" value="2"/>
         </p:menuitem>
-        <p:menuitem value="Cerrar Sesión" outcome="index.xhtml" icon="pi pi-fw pi-cog">
+        <p:menuitem value="Cerrar Sesión" outcome="index.xhtml" icon="pi pi-fw pi-sign-out">
             <f:param name="i" value="3"/>
         </p:menuitem>
     </p:tabMenu>
-
     <div class="card crud-demo">
         <h:form id="form">
             <p:growl id="messages" showDetail="true"/>
