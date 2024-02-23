@@ -2,13 +2,12 @@ package aplication.servicios;
 
 import access.impl.ClienteDao;
 import domain.entity.Cliente;
+
 import javax.faces.bean.ApplicationScoped;
-import javax.inject.Inject;
 import java.util.List;
 
 @ApplicationScoped
 public class ClienteService {
-    @Inject
     private ClienteDao clienteDao;
 
     public void insertar(Cliente obj) {

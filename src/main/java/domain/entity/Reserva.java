@@ -1,11 +1,10 @@
 package domain.entity;
 
+import enums.Estado;
+import enums.Turno;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import enums.Estado;
-import enums.Turno;
 
 import javax.persistence.*;
 import java.time.LocalDate;

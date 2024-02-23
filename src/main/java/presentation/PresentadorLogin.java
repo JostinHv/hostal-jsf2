@@ -5,7 +5,6 @@ import domain.entity.Empleado;
 import lombok.Getter;
 import lombok.Setter;
 
-
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -16,7 +15,7 @@ import java.io.Serializable;
 @SessionScoped
 public class PresentadorLogin  implements Serializable {
 
-	private LoginService loginService;
+	private final LoginService loginService;
 	@Getter
 	@Setter
 	private Empleado empleadoAutenticado;

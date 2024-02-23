@@ -3,7 +3,7 @@ package aplication.servicios;
 import access.impl.EmpleadoDao;
 import domain.entity.Empleado;
 public class LoginService {
-    private EmpleadoDao empleadoDao;
+    private final EmpleadoDao empleadoDao;
 
     public LoginService() {
         this.empleadoDao = new EmpleadoDao();
