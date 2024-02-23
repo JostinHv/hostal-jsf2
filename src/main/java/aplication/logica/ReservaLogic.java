@@ -8,23 +8,16 @@ import domain.entity.Habitacion;
 import domain.entity.Reserva;
 import lombok.Data;
 
-import javax.inject.Inject;
 import java.util.List;
 
 @Data
 public class ReservaLogic {
 
-    @Inject
     private ReservaService reservaService;
-    @Inject
     private ClienteService clienteService;
-    @Inject
     private HabitacionService habitacionService;
-    @Inject
     private Reserva reserva;
-    @Inject
     private Cliente cliente;
-    @Inject
     private Habitacion habitacion;
 
     public List<Reserva> listarReservas(){

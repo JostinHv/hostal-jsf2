@@ -6,8 +6,6 @@ import domain.entity.Empleado;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import javax.faces.bean.RequestScoped;
-import javax.inject.Named;
 import javax.persistence.Query;
 import java.util.List;
 

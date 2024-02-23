@@ -4,12 +4,10 @@ import access.impl.EmpleadoDao;
 import domain.entity.Empleado;
 
 import javax.faces.bean.ApplicationScoped;
-import javax.inject.Inject;
 import java.util.List;
 
 @ApplicationScoped
 public class EmpleadoService {
-    @Inject
     private EmpleadoDao empleadoDao;
 
     public void insertar(Empleado obj) {

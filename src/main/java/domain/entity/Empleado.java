@@ -1,10 +1,10 @@
 package domain.entity;
+
 import enums.Rol;
 import enums.Turno;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 import javax.persistence.*;
 

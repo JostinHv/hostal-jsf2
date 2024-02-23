@@ -35,10 +35,10 @@
 					</div>
 				</div>
 				<div class="card-content_button">
-					<p:commandButton value="Ingresar"
+					<p:commandButton value="Ingresar" class="btn"
 									 styleClass="ui-button-rounded ui-button-primary"
 									 icon="pi pi-user"
-									 actionListener="#{presentadorLogin.login()}"
+									 action="#{presentadorLogin.login}"
 									 update="msgs"/>
 				</div>
 				<p:messages id="msgs"/>

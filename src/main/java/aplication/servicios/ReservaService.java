@@ -4,12 +4,10 @@ import access.impl.ReservaDao;
 import domain.entity.Reserva;
 
 import javax.faces.bean.ApplicationScoped;
-import javax.inject.Inject;
 import java.util.List;
 
 @ApplicationScoped
 public class ReservaService {
-    @Inject
     private ReservaDao reservaDao;
 
     public void insertar(Reserva obj) {
