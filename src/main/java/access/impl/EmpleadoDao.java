@@ -6,6 +6,7 @@ import domain.entity.Empleado;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import javax.persistence.Query;
 import java.util.List;
 
 public class EmpleadoDao implements Dao<Empleado> {
@@ -75,5 +76,16 @@ public class EmpleadoDao implements Dao<Empleado> {
             e.printStackTrace();
         }
         return empleados;
+    }
+    public Empleado obtenerPorUsername(String username) {
+        Empleado empleado = null;
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Query query = session.createQuery("from Empleado where username = :username");
+            query.setParameter("username", username);
+            empleado = (Empleado) query.getSingleResult();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return empleado;
     }
 }
