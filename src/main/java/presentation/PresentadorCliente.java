@@ -54,6 +54,7 @@ public class PresentadorCliente implements Serializable {
         this.cliente = null;
         this.listaClientes = clienteService.obtenerTodos();
         } else {
+            this.editarCliente();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Cliente actualizado"));
         }
         PrimeFaces.current().executeScript("PF('manageProductDialog').hide()");
@@ -73,8 +74,6 @@ public class PresentadorCliente implements Serializable {
         clienteService.modificar(cliente);
         this.cliente = null;
         this.listaClientes = clienteService.obtenerTodos();
-        PrimeFaces.current().executeScript("PF('manageProductDialog').hide()");
-        PrimeFaces.current().ajax().update("form:messages", "form:dt-products");
     }
 
     public String getEliminarBotonMensaje() {
