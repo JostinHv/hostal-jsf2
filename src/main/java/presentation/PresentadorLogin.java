@@ -31,7 +31,6 @@ public class PresentadorLogin  implements Serializable {
 			return "Home?faces-redirect=true";
 		} else {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Invalid credentials"));
-			empleadoAutenticado= new Empleado();
 			return null;
 		}
 	}
