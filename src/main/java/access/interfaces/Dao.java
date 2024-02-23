@@ -1,6 +1,7 @@
 package access.interfaces;
 
 import java.util.List;
+
 public interface Dao<T> {
 
     public void insertar(T obj);
