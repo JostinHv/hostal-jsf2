@@ -32,16 +32,16 @@ body {
 			<h1>Login</h1>
 			<div class="input-box">
 				<p:inputText placeholder="Username" required="true"
-					value="#{presentadorLogin.cuenta}" />
+					value="#{presentadorLogin.empleadoAutenticado.username}" />
 				<i class="bx bxs-user"></i>
 			</div>
 			<div class="input-box">
 				<p:password placeholder="Password" required="true"
-					value="#{presentadorLogin.cuenta}" />
+					value="#{presentadorLogin.empleadoAutenticado.password}" />
 				<i class="bx bxs-lock-alt"></i>
 			</div>
 			<p:commandButton value="Login" type="submit" styleClass="btn"
-				action="#{presentadorLogin.autenticarse}" ajax="false"
+				action="#{presentadorLogin.login()}" ajax="false"
 				 />
 		</h:form>
 	</div>
