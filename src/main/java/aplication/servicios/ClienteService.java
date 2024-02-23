@@ -1,9 +1,8 @@
 package aplication.servicios;
 
-import com.jsf.hostaljsf.acceso.impl.ClienteDao;
-import com.jsf.hostaljsf.dominio.entidad.Cliente;
-
-import javax.enterprise.context.ApplicationScoped;
+import access.impl.ClienteDao;
+import domain.entity.Cliente;
+import javax.faces.bean.ApplicationScoped;
 import javax.inject.Inject;
 import java.util.List;
 

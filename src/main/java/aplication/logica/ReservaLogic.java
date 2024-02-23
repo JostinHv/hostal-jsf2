@@ -1,11 +1,11 @@
 package aplication.logica;
 
-import com.jsf.hostaljsf.aplicacion.servicios.ClienteService;
-import com.jsf.hostaljsf.aplicacion.servicios.HabitacionService;
-import com.jsf.hostaljsf.aplicacion.servicios.ReservaService;
-import com.jsf.hostaljsf.dominio.entidad.Cliente;
-import com.jsf.hostaljsf.dominio.entidad.Habitacion;
-import com.jsf.hostaljsf.dominio.entidad.Reserva;
+import aplication.servicios.ClienteService;
+import aplication.servicios.HabitacionService;
+import aplication.servicios.ReservaService;
+import domain.entity.Cliente;
+import domain.entity.Habitacion;
+import domain.entity.Reserva;
 import lombok.Data;
 
 import javax.inject.Inject;

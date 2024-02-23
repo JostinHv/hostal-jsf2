@@ -1,9 +1,9 @@
 package aplication.servicios;
 
-import com.jsf.hostaljsf.acceso.impl.ReservaDao;
-import com.jsf.hostaljsf.dominio.entidad.Reserva;
+import access.impl.ReservaDao;
+import domain.entity.Reserva;
 
-import javax.enterprise.context.ApplicationScoped;
+import javax.faces.bean.ApplicationScoped;
 import javax.inject.Inject;
 import java.util.List;
 

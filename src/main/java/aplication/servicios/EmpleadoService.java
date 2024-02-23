@@ -1,9 +1,9 @@
 package aplication.servicios;
 
-import com.jsf.hostaljsf.acceso.impl.EmpleadoDao;
-import com.jsf.hostaljsf.dominio.entidad.Empleado;
+import access.impl.EmpleadoDao;
+import domain.entity.Empleado;
 
-import javax.enterprise.context.ApplicationScoped;
+import javax.faces.bean.ApplicationScoped;
 import javax.inject.Inject;
 import java.util.List;
 

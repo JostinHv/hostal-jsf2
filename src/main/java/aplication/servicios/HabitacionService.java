@@ -1,9 +1,10 @@
 package aplication.servicios;
 
-import com.jsf.hostaljsf.acceso.impl.HabitacionDao;
-import com.jsf.hostaljsf.dominio.entidad.Habitacion;
 
-import javax.enterprise.context.ApplicationScoped;
+import access.impl.HabitacionDao;
+import domain.entity.Habitacion;
+
+import javax.faces.bean.ApplicationScoped;
 import javax.inject.Inject;
 import java.util.List;
 

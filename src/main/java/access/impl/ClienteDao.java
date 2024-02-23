@@ -5,6 +5,7 @@ import access.interfaces.Dao;
 import domain.entity.Cliente;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
 import java.util.List;
 
@@ -60,6 +61,20 @@ public class ClienteDao implements Dao<Cliente> {
         Cliente cliente = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             cliente = session.get(Cliente.class, id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return cliente;
+    }
+
+    public Cliente obtenerPorNombre(String nombre) {
+        Cliente cliente = null;
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            String hql = "FROM Cliente WHERE nombre = :nombre";
+            Query<Cliente> query = session.createQuery(hql, Cliente.class);
+            query.setParameter("nombre", nombre);
+
+            cliente = query.uniqueResult();
         } catch (Exception e) {
             e.printStackTrace();
         }
