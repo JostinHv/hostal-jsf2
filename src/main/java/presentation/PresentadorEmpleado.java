@@ -4,9 +4,12 @@ import aplication.servicios.EmpleadoService;
 import domain.entity.Empleado;
 import lombok.Getter;
 import lombok.Setter;
+import org.primefaces.PrimeFaces;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +26,9 @@ public class PresentadorEmpleado implements Serializable {
     @Getter
     @Setter
     private List<Empleado> listaEmpleados;
+    @Getter
+    @Setter
+    private List<Empleado> listaEmpleadosSeleccionados;
 
     public PresentadorEmpleado(){
         this.empleadoService = new EmpleadoService();
@@ -34,8 +40,8 @@ public class PresentadorEmpleado implements Serializable {
         empleado = new Empleado();
     }
 
-    public void listarEmpleados(){
-        listaEmpleados = this.empleadoService.obtenerTodos();
+    public List<Empleado> listarEmpleados(){
+        return this.empleadoService.obtenerTodos();
     }
 
     public void buscarEmpleado(){
@@ -43,18 +49,54 @@ public class PresentadorEmpleado implements Serializable {
     }
 
     public void registrarEmpleado(){
-        empleado.setActivo(true);
-        this.empleadoService.insertar(empleado);
+        if (this.empleado.getId() == 0) {
+            empleado.setActivo(true);
+            empleadoService.insertar(empleado);
+            this.empleado = null;
+            this.listaEmpleados = empleadoService.obtenerTodos();
+        } else {
+            this.editarEmpleado();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Empleado actualizado"));
+        }
+        PrimeFaces.current().executeScript("PF('manageProductDialog').hide()");
+        PrimeFaces.current().ajax().update("form:messages", "form:dt-products");
+
     }
 
     public void eliminarEmpleado(){
-        empleado = this.empleadoService.consultar(empleado.getId());
-        empleado.setActivo(false);
-        this.empleadoService.modificar(empleado);
+        empleado = empleadoService.consultar(empleado.getId());
+        empleadoService.eliminar(empleado);
+        this.empleado = null;
+        this.listaEmpleados = empleadoService.obtenerTodos();
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Empleado Eliminado"));
+        PrimeFaces.current().ajax().update("form:messages", "form:dt-products");
     }
 
     public void editarEmpleado(){
         this.empleadoService.modificar(empleado);
+        this.empleado = null;
+        this.listaEmpleados = empleadoService.obtenerTodos();
+    }
+
+    public String getEliminarBotonMensaje() {
+        if (tieneEmpleadosSeleccionados()) {
+            int size = this.listaEmpleadosSeleccionados.size();
+            return size > 1 ? size + " empleados seleccionados" : "1 empleado seleccionado";
+        }
+
+        return "Eliminar";
+    }
+
+    public boolean tieneEmpleadosSeleccionados() {
+        return this.listaEmpleadosSeleccionados != null && !this.listaEmpleadosSeleccionados.isEmpty();
+    }
+
+    public void eliminarEmpleadosSeleccionados() {
+        this.listaEmpleados.removeAll(this.listaEmpleadosSeleccionados);
+        this.listaEmpleadosSeleccionados = null;
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Empleados Eliminados"));
+        PrimeFaces.current().ajax().update("form:messages", "form:dt-products");
+        PrimeFaces.current().executeScript("PF('dtProducts').clearFilters()");
     }
 
 }
