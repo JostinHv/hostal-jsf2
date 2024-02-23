@@ -30,7 +30,9 @@ public class Reserva {
 	private Double costoYape;
 	private Double costoEfectivo;
 	@ManyToOne
+	@JoinColumn(name = "habitacion")
 	private Habitacion habitacion;
 	@ManyToOne
+	@JoinColumn(name = "cliente")
 	private Cliente cliente;
 }
