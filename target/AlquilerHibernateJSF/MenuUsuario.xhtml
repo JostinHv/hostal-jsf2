@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" />
+	<link rel="stylesheet" type="text/css"
+		href="#{request.contextPath}/resources/css/style.css" />
+	<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'
+		rel='stylesheet' />
+	<title>MenuUsuario</title>
+
+	<style type="text/css">
+body {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+	background: hsl(0, 0%, 86.3%);
+}
+</style>
+</h:head>
+
+<h:body>
+
+	<div class="layout-topbar">
+		<i class="bx bxs-user-circle"></i> <img
+			src="#{request.contextPath}/resources/images/logo_uns_final.png"
+			alt="Logo" />
+		<h1>Usuario Nombre</h1>
+		<h:form>
+			<div class="logout-box">
+				<p:commandButton value="Cerrar sesión" class="btn"
+					icon="pi pi-sign-out" action="#{presentadorUsuario.logout}"
+					ajax="false" />
+			</div>
+		</h:form>
+	</div>
+
+	<div class="wrapperMenu">
+		<h:form>
+			<div class="input-box">
+				<i class="pi pi-book"></i>
+				<p:commandButton value="Menu Libros" class="btn"
+					icon="pi pi-arrow-up-right"
+					action="#{presentadorUsuario.menuLibro}" ajax="false" />
+			</div>
+		</h:form>
+	</div>
+
+	<div class="wrapperMenu">
+		<h:form>
+			<div class="input-box">
+				<i class="pi pi-check-square" style="color: #ffffff"></i>
+				<p:commandButton value="Menu Reservas" class="btn"
+					icon="pi pi-arrow-up-right"
+					action="#{presentadorUsuario.menuReserva}" ajax="false" />
+			</div>
+		</h:form>
+	</div>
+
+</h:body>
+</html>

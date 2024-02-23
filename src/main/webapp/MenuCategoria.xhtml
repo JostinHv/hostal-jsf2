@@ -1,0 +1,254 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" />
+	<link rel="stylesheet" type="text/css"
+		href="#{request.contextPath}/resources/css/style.css" />
+	<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'
+		rel='stylesheet' />
+	<title>Menu Categorias</title>
+
+	<style type="text/css">
+body {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+	background: hsl(0, 0%, 86.3%);
+}
+</style>
+
+</h:head>
+<h:body>
+
+	<div class="layout-topbar">
+		<i class="pi pi-list" style="color: #ffffff"></i> <img
+			src="#{request.contextPath}/resources/images/logo_uns_final.png"
+			alt="Logo" />
+		<h1>Menu Categorias</h1>
+	</div>
+
+	<div class="crud-demo">
+		<h:form id="form">
+			<p:growl id="messages" showDetail="true" />
+
+			<p:toolbar class="bar">
+				<p:toolbarGroup>
+					<p:commandButton value="Agregar" styleClass="ui-button-success"
+						icon="pi pi-plus"
+						actionListener="#{presentadorMenuCategoria.openNew}"
+						update=":dialogs:add-product-content"
+						oncomplete="PF('addProductDialog').show()">
+						<p:resetInput target=":dialogs:add-product-content" />
+					</p:commandButton>
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<p:dataTable id="dt-products" widgetVar="dtProducts" var="categoria"
+				value="#{presentadorMenuCategoria.categorias}" reflow="true"
+				styleClass="products-table" rowKey="#{categoria.ID}"
+				paginator="true" rows="5" paginatorPosition="bottom">
+
+				<p:column headerText="ID" sortBy="#{categoria.ID}">
+					<h:outputText value="#{categoria.ID}" />
+				</p:column>
+				<p:column headerText="Categoria" sortBy="#{categoria.categoria}">
+					<h:outputText value="#{categoria.categoria}" />
+				</p:column>
+
+				<p:column class="options" exportable="false">
+					<p:commandButton icon="pi pi-pencil"
+						update=":dialogs:manage-product-content"
+						oncomplete="PF('manageProductDialog').show()"
+						styleClass="edit-button rounded-button ui-button-success"
+						style="background-color: hsl(350, 68%, 50%);
+							   border: none;
+							   outline: none;
+							   margin-right:15px;"
+						process="@this">
+						<f:setPropertyActionListener value="#{categoria}"
+							target="#{presentadorMenuCategoria.categoria}" />
+						<p:resetInput target=":dialogs:manage-product-content" />
+					</p:commandButton>
+					<p:commandButton icon="bx bxs-book-open"
+						update=":dialogs:consult-product-content"
+						oncomplete="PF('consultProductDialog').show()"
+						styleClass="edit-button rounded-button ui-button-success"
+						style="background-color: hsl(350, 68%, 50%);
+							   border: none;
+							   outline: none;
+							   margin-right:15px;"
+						process="@this">
+						<f:setPropertyActionListener value="#{categoria}"
+							target="#{presentadorMenuCategoria.categoria}" />
+						<p:resetInput target=":dialogs:consult-product-content" />
+					</p:commandButton>
+					<p:commandButton class="ui-button-warning rounded-button"
+						icon="pi pi-trash" process="@this"
+						oncomplete="PF('deleteProductDialog').show()"
+						style="color: #f63e28;
+							   background-color:#ced4da;
+							   border: none;
+							   outline: none;">
+						<f:setPropertyActionListener value="#{categoria}"
+							target="#{presentadorMenuCategoria.categoria}" />
+					</p:commandButton>
+				</p:column>
+
+			</p:dataTable>
+		</h:form>
+
+		<h:form id="dialogs">
+			<p:dialog header="Añadir Categoría" showEffect="fade"
+				modal="true" widgetVar="addProductDialog" responsive="true">
+				<p:outputPanel id="add-product-content" class="ui-fluid">
+					<p:outputPanel
+						rendered="#{not empty presentadorMenuCategoria.categoria}">
+						<div class="field">
+							<p:outputLabel for="idCategoriaA">ID Categoría: </p:outputLabel>
+							<p:inputText id="idCategoriaA"
+								value="#{presentadorMenuCategoria.categoria.ID}" />
+						</div>
+						<div class="field">
+							<p:outputLabel for="categoriaA">Categoría: </p:outputLabel>
+							<p:inputText id="categoriaA"
+								value="#{presentadorMenuCategoria.categoria.categoria}"
+								required="true" />
+						</div>
+						<div class="field">
+							<p:outputLabel for="descripcionA">Descripción: </p:outputLabel>
+							<p:inputText id="descripcionA"
+								value="#{presentadorMenuCategoria.categoria.descripcion}" />
+						</div>
+
+					</p:outputPanel>
+				</p:outputPanel>
+
+				<f:facet name="footer">
+					<p:commandButton value="Guardar" icon="pi pi-check"
+						actionListener="#{presentadorMenuCategoria.guardar}"
+						class="ui-button-save" update="add-product-content"
+						process="add-product-content @this" />
+					<p:commandButton value="Cancelar" icon="pi pi-times"
+						onclick="PF('addProductDialog').hide()"
+						class="ui-button-secondary" type="button" />
+				</f:facet>
+			</p:dialog>
+			<p:dialog header="Consultar Categoría" showEffect="fade"
+				modal="true" widgetVar="consultProductDialog" responsive="true">
+				<p:outputPanel id="consult-product-content" class="ui-fluid">
+					<p:outputPanel
+						rendered="#{not empty presentadorMenuCategoria.categoria}">
+						<div class="field">
+							<p:outputLabel for="idCategoriaC">ID Categoría: </p:outputLabel>
+							<p:outputLabel id="idCategoriaC"
+								value="#{presentadorMenuCategoria.categoria.ID}" />
+						</div>
+						<div class="field">
+							<p:outputLabel for="categoriaC">Categoría: </p:outputLabel>
+							<p:outputLabel id="categoriaC"
+								value="#{presentadorMenuCategoria.categoria.categoria}"
+								required="true" />
+						</div>
+						<div class="field">
+							<p:outputLabel for="descripcionC">Descripción: </p:outputLabel>
+							<p:outputLabel id="descripcionC"
+								value="#{presentadorMenuCategoria.categoria.descripcion}" />
+						</div>
+					</p:outputPanel>
+				</p:outputPanel>
+
+				<f:facet name="footer">
+					<p:commandButton value="Cerrar" icon="pi pi-times"
+						onclick="PF('consultProductDialog').hide()"
+						class="ui-button-secondary" type="button" />
+				</f:facet>
+			</p:dialog>
+			<p:dialog header="Detalles de Categoría" showEffect="fade"
+				modal="true" widgetVar="manageProductDialog" responsive="true">
+				<p:outputPanel id="manage-product-content" class="ui-fluid">
+					<p:outputPanel
+						rendered="#{not empty presentadorMenuCategoria.categoria}">
+						<div class="field">
+							<p:outputLabel for="idCategoria">ID Categoría: </p:outputLabel>
+							<p:outputLabel id="idCategoria"
+								value="#{presentadorMenuCategoria.categoria.ID}" />
+						</div>
+						<div class="field">
+							<p:outputLabel for="categoria">Categoría: </p:outputLabel>
+							<p:inputText id="categoria"
+								value="#{presentadorMenuCategoria.categoria.categoria}"
+								required="true" />
+						</div>
+						<div class="field">
+							<p:outputLabel for="descripcion">Descripción: </p:outputLabel>
+							<p:inputText id="descripcion"
+								value="#{presentadorMenuCategoria.categoria.descripcion}" />
+						</div>
+					</p:outputPanel>
+				</p:outputPanel>
+
+				<f:facet name="footer">
+					<p:commandButton value="Guardar" icon="pi pi-check"
+						actionListener="#{presentadorMenuCategoria.modificar}"
+						class="ui-button-save" update="manage-product-content"
+						process="manage-product-content @this" />
+					<p:commandButton value="Cancelar" icon="pi pi-times"
+						onclick="PF('manageProductDialog').hide()"
+						class="ui-button-secondary" type="button" />
+				</f:facet>
+			</p:dialog>
+
+			<p:confirmDialog widgetVar="deleteProductDialog" showEffect="fade"
+				width="400" message="¿Esta seguro de eliminar la categoría?"
+				header="Confirmar" severity="warn">
+				<p:commandButton value="Si" icon="pi pi-check"
+					actionListener="#{presentadorMenuCategoria.eliminar}" process="@this"
+					oncomplete="PF('deleteProductDialog').hide()"
+					style="background-color: hsl(350, 68%, 50%);
+						   border: none;
+						   outline: none;" />
+				<p:commandButton value="No" type="button"
+					styleClass="ui-button-secondary" icon="pi pi-times"
+					onclick="PF('deleteProductDialog').hide()" />
+			</p:confirmDialog>
+
+			<p:confirmDialog global="true" showEffect="fade" width="300">
+				<p:commandButton value="Si" type="button"
+					styleClass="ui-confirmdialog-yes" icon="pi pi-check"
+					style="background-color: hsl(350, 68%, 50%);
+						   border: none;
+						   outline: none;" />
+				<p:commandButton value="No" type="button"
+					styleClass="ui-confirmdialog-no ui-button-secondary"
+					icon="pi pi-times" />
+			</p:confirmDialog>
+
+			<p:commandButton value="Regresar" class="btn" icon="pi pi-angle-left"
+							 style="width: 10%;
+									height: 40px;
+									background: #fff;
+									border: none;
+									outline: none;
+							     	border-radius: 40px;
+									box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+									cursor: pointer;
+									font-size: 15px;
+									color: #333;
+									font-weight: 600;
+									margin-top: 20px;
+									margin-left: -5px;"
+				action="#{presentadorMenuCategoria.regresarMenu}" ajax="false" />
+
+		</h:form>
+	</div>
+
+</h:body>
+</html>

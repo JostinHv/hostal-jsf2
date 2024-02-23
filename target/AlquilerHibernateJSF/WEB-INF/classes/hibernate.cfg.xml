@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory>
+		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="connection.url">
+			jdbc:mysql://localhost:3306/sistemas_reservas</property>
+		<property name="connection.username">root</property>
+		<property name="connection.password">1234</property>
+		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+		<property name="format_sql">true</property>
+		<property name="use_sql_comments">true</property>
+
+		<mapping class="domain.entity.Administrador" />
+		<mapping class="domain.entity.Usuario" />
+		<mapping class="domain.entity.Categoria" />
+		<mapping class="domain.entity.Libro" />
+		<mapping class="domain.entity.Autor" />
+		<mapping class="domain.entity.Cuenta" />
+		<mapping class="domain.entity.Reserva" />
+	</session-factory>
+</hibernate-configuration>
