@@ -21,8 +21,8 @@ public class HabitacionService {
         habitacionDao.modificar(obj);
     }
 
-    public void eliminar(Habitacion obj) {
-        habitacionDao.eliminar(obj);
+    public boolean eliminar(Habitacion obj) {
+        return habitacionDao.eliminar(obj);
     }
 
     public Habitacion obtener(int id) {

@@ -42,17 +42,19 @@ public class ClienteDao implements Dao<Cliente> {
     }
 
     @Override
-    public void eliminar(Cliente obj) {
+    public boolean eliminar(Cliente obj) {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
             session.delete(obj);
             transaction.commit();
+            return true;
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();
             }
             e.printStackTrace();
+            return false;
         }
     }
 

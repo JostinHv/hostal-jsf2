@@ -8,7 +8,7 @@ public interface Dao<T> {
 
     void modificar(T obj);
 
-    void eliminar(T obj);
+    boolean eliminar(T obj);
 
     T obtener(int id);
 

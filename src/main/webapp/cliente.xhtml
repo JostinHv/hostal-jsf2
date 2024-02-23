@@ -56,7 +56,7 @@
                 <f:facet name="header">
                     <div class="products-table-header">
                         <span style="font-weight: bold">Lista de Clientes</span>
-                        <span class="filter-container ui-input-icon-left"> <i class="pi pi-search"></i>
+                        <span class="filter-container ui-input-icon-left"> <i class="pi pi-search"> </i>
                         <p:inputText id="globalFilter" onkeyup="PF('dtProducts').filter()" placeholder="Buscar" />
                     </span>
                     </div>
@@ -68,7 +68,7 @@
                 <p:ajax event="rowUnselectCheckbox" update=":form:delete-products-button" />
                 <p:ajax event="toggleSelect" update=":form:delete-products-button" />
 
-                <p:column selectionMode="multiple" exportable="false"></p:column>
+                <p:column selectionMode="multiple" exportable="false"> </p:column>
 
                 <p:column headerText="Id" sortBy="#{cliente.id}" filterBy="#{cliente.id}">
                     <h:outputText value="#{cliente.id}" />

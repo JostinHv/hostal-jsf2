@@ -63,10 +63,15 @@ public class PresentadorCliente implements Serializable {
 
     public void eliminarCliente(){
         cliente = clienteService.obtener(cliente.getId());
-        clienteService.eliminar(cliente);
-        this.cliente = null;
-        this.listaClientes = clienteService.obtenerTodos();
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Cliente Eliminado"));
+        if (clienteService.eliminar(cliente)) {
+            this.cliente = null;
+            this.listaClientes = clienteService.obtenerTodos();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Cliente Eliminado"));
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "Error",
+                    "No se pudo eliminar el cliente. Verfique que no esté asociado a una reserva para poder eliminarlo."));
+        }
         PrimeFaces.current().ajax().update("form:messages", "form:dt-products");
     }
 
@@ -81,7 +86,6 @@ public class PresentadorCliente implements Serializable {
             int size = this.listaClientesSeleccionados.size();
             return size > 1 ? size + " clientes seleccionados" : "1 cliente seleccionado";
         }
-
         return "Eliminar";
     }
 
@@ -90,9 +94,19 @@ public class PresentadorCliente implements Serializable {
     }
 
     public void eliminarClientesSeleccionados() {
-        this.listaClientes.removeAll(this.listaClientesSeleccionados);
-        this.listaClientesSeleccionados = null;
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Clientes Eliminados"));
+        boolean esValido = true;
+        for (Cliente cliente: listaClientesSeleccionados) {
+            esValido &= clienteService.eliminar(clienteService.obtener(cliente.getId()));
+        }
+        if (esValido) {
+            this.listaClientes.removeAll(this.listaClientesSeleccionados);
+            this.listaClientesSeleccionados = null;
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Clientes Eliminados"));
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "Error",
+                    "No se pudo eliminar algún cliente. Verfique que no esté asociado a una reserva para poder eliminarlo."));
+        }
         PrimeFaces.current().ajax().update("form:messages", "form:dt-products");
         PrimeFaces.current().executeScript("PF('dtProducts').clearFilters()");
     }

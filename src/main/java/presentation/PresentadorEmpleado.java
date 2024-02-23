@@ -65,10 +65,16 @@ public class PresentadorEmpleado implements Serializable {
 
     public void eliminarEmpleado(){
         empleado = empleadoService.consultar(empleado.getId());
-        empleadoService.eliminar(empleado);
-        this.empleado = null;
-        this.listaEmpleados = empleadoService.obtenerTodos();
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Empleado Eliminado"));
+        if (empleadoService.eliminar(empleado)) {
+            this.empleado = null;
+            this.listaEmpleados = empleadoService.obtenerTodos();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Empleado Eliminado"));
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "Error",
+                    "No se pudo eliminar el empleado. Verfique que no esté asociado a otro registro."));
+        }
+
         PrimeFaces.current().ajax().update("form:messages", "form:dt-products");
     }
 
@@ -92,9 +98,19 @@ public class PresentadorEmpleado implements Serializable {
     }
 
     public void eliminarEmpleadosSeleccionados() {
-        this.listaEmpleados.removeAll(this.listaEmpleadosSeleccionados);
-        this.listaEmpleadosSeleccionados = null;
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Empleados Eliminados"));
+        boolean esValido = true;
+        for(Empleado empleado: listaEmpleadosSeleccionados) {
+            esValido &= empleadoService.eliminar(empleadoService.consultar(empleado.getId()));
+        }
+        if (esValido) {
+            this.listaEmpleados.removeAll(this.listaEmpleadosSeleccionados);
+            this.listaEmpleadosSeleccionados = null;
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Empleados Eliminados"));
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "Error",
+                    "No se pudo eliminar algun empleado. Verfique que no esté asociado a otro registro."));
+        }
         PrimeFaces.current().ajax().update("form:messages", "form:dt-products");
         PrimeFaces.current().executeScript("PF('dtProducts').clearFilters()");
     }

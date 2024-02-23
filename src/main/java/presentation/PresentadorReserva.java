@@ -106,10 +106,15 @@ public class PresentadorReserva implements Serializable {
 
     public void eliminarReserva() {
         reserva = reservaService.obtener(reserva.getId());
-        reservaService.eliminar(reserva);
-        this.reserva = null;
-        this.listaReservas = reservaService.obtenerTodos();
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Reserva Eliminada"));
+        if (reservaService.eliminar(reserva)) {
+            this.reserva = null;
+            this.listaReservas = reservaService.obtenerTodos();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Reserva Eliminada"));
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "Error",
+                    "No se pudo eliminar la reserva. Verfique que no esté asociada a otro registro."));
+        }
         PrimeFaces.current().ajax().update("form:messages", "form:dt-reservas");
     }
 
@@ -133,9 +138,19 @@ public class PresentadorReserva implements Serializable {
     }
 
     public void eliminarReservasSeleccionadas() {
-        this.listaReservas.removeAll(this.listaReservasSeleccionadas);
-        this.listaReservasSeleccionadas = null;
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Reservas Eliminadas"));
+        boolean esValido = true;
+        for (Reserva reserva: listaReservasSeleccionadas) {
+            esValido &= reservaService.eliminar(reservaService.obtener(reserva.getId()));
+        }
+        if(esValido) {
+            this.listaReservas.removeAll(this.listaReservasSeleccionadas);
+            this.listaReservasSeleccionadas = null;
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Reservas Eliminadas"));
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "Error",
+                    "No se pudo eliminar alguna reserva. Verfique que no esté asociada a otro registro."));
+        }
         PrimeFaces.current().ajax().update("form:messages", "form:dt-reservas");
         PrimeFaces.current().executeScript("PF('dtReservas').clearFilters()");
     }

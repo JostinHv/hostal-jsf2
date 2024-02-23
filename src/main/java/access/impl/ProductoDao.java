@@ -41,17 +41,19 @@ public class ProductoDao implements Dao<Producto> {
     }
 
     @Override
-    public void eliminar(Producto obj) {
+    public boolean eliminar(Producto obj) {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
             session.delete(obj);
             transaction.commit();
+            return true;
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();
             }
             e.printStackTrace();
+            return false;
         }
     }
 

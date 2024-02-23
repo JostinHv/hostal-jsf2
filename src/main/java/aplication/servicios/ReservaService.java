@@ -20,8 +20,8 @@ public class ReservaService {
         reservaDao.modificar(obj);
     }
 
-    public void eliminar(Reserva obj) {
-        reservaDao.eliminar(obj);
+    public boolean eliminar(Reserva obj) {
+        return reservaDao.eliminar(obj);
     }
 
     public Reserva obtener(int id) {

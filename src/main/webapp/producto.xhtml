@@ -143,10 +143,8 @@
                             <p:spinner id="quantity" min="0" value="#{presentadorProducto.producto.stock}"/>
                         </div>
                         <div class="field col">
-                            <p:outputLabel for="fecha" value="Fecha Actual:"/>
-                            <p:inputText id="fecha" value="#{presentadorProducto.producto.fechaEdicionStock}">
-                                <f:convertDateTime pattern="dd/MM/yyyy"/>
-                            </p:inputText>
+                            <p:outputLabel for="quantity">Fecha de edición</p:outputLabel>
+                            <p:calendar id="fecha" value="#{presentadorProducto.producto.fechaEdicionStock}" pattern="dd/MM/yyyy"/>
                         </div>
                     </p:outputPanel>
                 </p:outputPanel>

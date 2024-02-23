@@ -1,7 +1,28 @@
-.header-menu {
+body .ui-tabmenu .ui-tabmenu-nav {
+    overflow-x: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 1;
+}
+
+.card {
+    margin-top: 50px;
+    padding-top: 20px;
+}
+
+[class$="-table-header"] {
+    display: flex;
+    align-items: center;
+    gap: 30px
+}
+
+[class$="-table-header"] span.filter-container, [class$="-table-header"] span.filter-container input {
     width: 100%;
 }
 
-body .ui-tabmenu .ui-tabmenu-nav  {
-    overflow-x: hidden;
+.ui-selection-column {
+    width: 24px;
 }

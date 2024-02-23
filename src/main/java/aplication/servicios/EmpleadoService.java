@@ -21,8 +21,8 @@ public class EmpleadoService {
         empleadoDao.modificar(obj);
     }
 
-    public void eliminar(Empleado obj) {
-        empleadoDao.eliminar(obj);
+    public boolean eliminar(Empleado obj) {
+        return empleadoDao.eliminar(obj);
     }
 
     public Empleado consultar(int id) {

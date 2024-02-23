@@ -62,10 +62,15 @@ public class PresentadorHabitacion implements Serializable {
 
     public void eliminarHabitacion() {
         habitacion = habitacionService.obtener(habitacion.getId());
-        habitacionService.eliminar(habitacion);
-        this.habitacion = null;
-        this.listaHabitaciones = habitacionService.obtenerTodos();
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Habitación Eliminada"));
+        if (habitacionService.eliminar(habitacion)) {
+            this.habitacion = null;
+            this.listaHabitaciones = habitacionService.obtenerTodos();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Habitación Eliminada"));
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "Error",
+                    "No se pudo eliminar la habitación. Verfique que no esté asociada a otro registro."));
+        }
         PrimeFaces.current().ajax().update("form:messages", "form:dt-products");
     }
 
@@ -89,9 +94,19 @@ public class PresentadorHabitacion implements Serializable {
     }
 
     public void eliminarHabitacionesSeleccionadas() {
-        this.listaHabitaciones.removeAll(this.listaHabitacionesSeleccionadas);
-        this.listaHabitacionesSeleccionadas = null;
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Habitaciones Eliminadas"));
+        boolean esValido = true;
+        for(Habitacion habitacion: listaHabitacionesSeleccionadas) {
+            esValido &= habitacionService.eliminar(habitacionService.obtener(habitacion.getId()));
+        }
+        if (esValido) {
+            this.listaHabitaciones.removeAll(this.listaHabitacionesSeleccionadas);
+            this.listaHabitacionesSeleccionadas = null;
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Habitaciones Eliminadas"));
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "Error",
+                    "No se pudo eliminar alguna habitación. Verfique que no esté asociada a otro registro."));
+        }
         PrimeFaces.current().ajax().update("form:messages", "form:dt-products");
         PrimeFaces.current().executeScript("PF('dtProducts').clearFilters()");
     }

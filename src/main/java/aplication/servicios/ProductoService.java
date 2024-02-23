@@ -22,8 +22,8 @@ public class ProductoService {
         productoDao.modificar(obj);
     }
 
-    public void eliminar(Producto obj) {
-        productoDao.eliminar(obj);
+    public boolean eliminar(Producto obj) {
+        return productoDao.eliminar(obj);
     }
 
     public Producto obtener(int id) {

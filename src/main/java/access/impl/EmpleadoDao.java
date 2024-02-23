@@ -42,17 +42,19 @@ public class EmpleadoDao implements Dao<Empleado> {
     }
 
     @Override
-    public void eliminar(Empleado obj) {
+    public boolean eliminar(Empleado obj) {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
             session.delete(obj);
             transaction.commit();
+            return true;
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();
             }
             e.printStackTrace();
+            return false;
         }
     }
 

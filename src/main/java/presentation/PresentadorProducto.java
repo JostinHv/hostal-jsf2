@@ -65,10 +65,15 @@ public class PresentadorProducto implements Serializable {
 
     public void eliminarProducto(){
         producto = productoService.obtener(producto.getId());
-        productoService.eliminar(producto);
-        this.producto = null;
-        this.listaProductos = productoService.obtenerTodos();
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Producto Eliminado"));
+        if (productoService.eliminar(producto)) {
+            this.producto = null;
+            this.listaProductos = productoService.obtenerTodos();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Producto Eliminado"));
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "Error",
+                    "No se pudo eliminar el producto. Verfique que no esté asociado a otro registro."));
+        }
         PrimeFaces.current().ajax().update("form:messages", "form:dt-products");
     }
 
@@ -91,9 +96,19 @@ public class PresentadorProducto implements Serializable {
     }
 
     public void eliminarProductosSeleccionados() {
-        this.listaProductos.removeAll(this.listaProductosSelecionados);
-        this.listaProductosSelecionados = null;
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Producto Eliminados"));
+        boolean esValido = true;
+        for (Producto producto: listaProductosSelecionados) {
+            esValido &= productoService.eliminar(productoService.obtener(producto.getId()));
+        }
+        if (esValido) {
+            this.listaProductos.removeAll(this.listaProductosSelecionados);
+            this.listaProductosSelecionados = null;
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Producto Eliminados"));
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "Error",
+                    "No se pudo eliminar algun producto. Verfique que no esté asociado a otro registro."));
+        }
         PrimeFaces.current().ajax().update("form:messages", "form:dt-products");
         PrimeFaces.current().executeScript("PF('dtProducts').clearFilters()");
     }

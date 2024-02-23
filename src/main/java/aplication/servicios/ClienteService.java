@@ -20,8 +20,8 @@ public class ClienteService {
         clienteDao.modificar(obj);
     }
 
-    public void eliminar(Cliente obj) {
-        clienteDao.eliminar(obj);
+    public boolean eliminar(Cliente obj) {
+        return clienteDao.eliminar(obj);
     }
 
     public Cliente obtener(int id) {

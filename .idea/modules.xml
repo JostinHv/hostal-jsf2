@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/AlquilerHibernateJSF.iml" filepath="$PROJECT_DIR$/AlquilerHibernateJSF.iml" />
       <module fileurl="file://$PROJECT_DIR$/HostalJSF.iml" filepath="$PROJECT_DIR$/HostalJSF.iml" />
     </modules>
   </component>
