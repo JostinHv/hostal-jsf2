@@ -40,8 +40,8 @@ public class PresentadorCliente implements Serializable {
         cliente = new Cliente();
     }
 
-    public void listarClientes(){
-        listaClientes = clienteService.obtenerTodos();
+    public List<Cliente> listarClientes(){
+        return clienteService.obtenerTodos();
     }
 
     public void buscarCliente(){

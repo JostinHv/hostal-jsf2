@@ -41,7 +41,7 @@ public class Pruebas {
         for (Reserva reserva : reservasFiltradas) {
             System.out.println(reserva.toString());
         }
-        System.out.println("Total:"+informeReservas.calcularTotal()+" Turno"+reservasFiltradas.getFirst().getTurno());
+        System.out.println("Total:"+informeReservas.calcularTotal()+" Turno");
     }
 
 
